@@ -21,7 +21,11 @@ module Obscenity
       def profane?(text)
         return(false) unless text.to_s.size >= 3
         blacklist.each do |foul|
-          return(true) if text =~ /\b#{foul}\b/i && !whitelist.include?(foul)
+          if I18n.locale == :ja
+            return(true) if text =~ /#{foul}/i && !whitelist.include?(foul)
+          else
+            return(true) if text =~ /\b#{foul}\b/i && !whitelist.include?(foul)
+          end
         end
         false
       end
@@ -29,7 +33,11 @@ module Obscenity
       def sanitize(text)
         return(text) unless text.to_s.size >= 3
         blacklist.each do |foul|
-          text.gsub!(/\b#{foul}\b/i, replace(foul)) unless whitelist.include?(foul)
+          if I18n.locale == :ja
+            text.gsub!(/#{foul}/i, replace(foul)) unless whitelist.include?(foul)
+          else
+            text.gsub!(/\b#{foul}\b/i, replace(foul)) unless whitelist.include?(foul)
+          end
         end
         @scoped_replacement = nil
         text
@@ -44,7 +52,11 @@ module Obscenity
         words = []
         return(words) unless text.to_s.size >= 3
         blacklist.each do |foul|
-          words << foul if text =~ /\b#{foul}\b/i && !whitelist.include?(foul)
+          if I18n.locale == :ja
+            words << foul if text =~ /#{foul}/i && !whitelist.include?(foul)
+          else
+            words << foul if text =~ /\b#{foul}\b/i && !whitelist.include?(foul)
+          end
         end
         words.uniq
       end
