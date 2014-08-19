@@ -2,6 +2,14 @@
 
 Obscenity is a profanity filter gem for Ruby/Rubinius, Rails (through ActiveModel), and Rack middleware.
 
+## Notice
+
+This fork is for japanease language environment
+
+日本語環境だとsanitizeしてくれないので少しだけ修正しました
+
+
+
 ## Installation
 
 Add this line to your application's Gemfile:
